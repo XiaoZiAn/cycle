@@ -36,9 +36,9 @@ public class JobTaskController {
 		return "taskList";
 	}
 
-	@RequestMapping("add")
 	@ResponseBody
-	public RetObj taskList(@RequestBody ScheduleJob scheduleJob) {
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    public RetObj taskList(@RequestBody ScheduleJob scheduleJob) {
 		RetObj retObj = new RetObj();
 		retObj.setFlag(false);
 		try {
@@ -82,7 +82,6 @@ public class JobTaskController {
 			retObj.setMsg("保存失败，检查 name group 组合是否有重复！");
 			return retObj;
 		}
-
 		retObj.setFlag(true);
 		return retObj;
 	}
@@ -104,18 +103,18 @@ public class JobTaskController {
 	}
 
 	@ResponseBody
-	@RequestMapping("updateCron")
-	public RetObj updateCron(HttpServletRequest request, String jobId, String cron) {
+    @RequestMapping(path = "/updateCron", method = RequestMethod.POST)
+	public RetObj updateCron(@RequestBody ScheduleJob scheduleJob) {
 		RetObj retObj = new RetObj();
 		retObj.setFlag(false);
 		try {
-			CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cron);
+			CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression());
 		} catch (Exception e) {
 			retObj.setMsg("cron表达式有误，不能被解析！");
 			return retObj;
 		}
 		try {
-			taskService.updateCron(jobId, cron);
+			taskService.updateCron(scheduleJob.getJobId(), scheduleJob.getCronExpression());
 		} catch (SchedulerException e) {
 			retObj.setMsg("cron更新失败！");
 			return retObj;

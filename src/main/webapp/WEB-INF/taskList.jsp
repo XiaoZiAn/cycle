@@ -143,7 +143,7 @@
                 <td>${job.beanClass }</td>
                 <td>${job.springId }</td>
                 <td>${job.methodName }</td>
-                <td><a href="javascript:void(0);" onclick="updateCron('${job.jobId}')">更新cron</a></td>
+                <td><a href="javascript:;" onclick="updateCron('${job.jobId}')">更新cron</a></td>
             </tr>
         </c:forEach>
         <tr>
@@ -211,7 +211,6 @@
                     } else {
                         alert(data.msg);
                     }
-
                 }//end-callback
             });//end-ajax
         }
@@ -244,17 +243,17 @@
         var cron = prompt("输入cron表达式！", "");
         if (cron) {
             showWaitMsg();
-
+            var param = {
+                jobId : jobId,
+                cronExpression : cron
+            };
             $.ajax({
                 type : "POST",
                 async : false,
                 dataType : "JSON",
                 cache : false,
                 url : "${basePath}task/updateCron",
-                data : {
-                    jobId : jobId,
-                    cron : cron
-                },
+                data : JSON.stringify(param),
                 success : function(data) {
                     hideWaitMsg();
                     if (data.flag) {
