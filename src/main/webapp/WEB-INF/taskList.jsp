@@ -1,8 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf8" %>
 <!doctype html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 
     <%
@@ -18,9 +18,9 @@
         pageContext.setAttribute("newLineChar", "\n");
     %>
     <script src="<%=basePath%>scripts/jquery-1.9.1.min.js"></script>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
     <style type="text/css">
         .datagrid-mask {
@@ -32,8 +32,7 @@
         }
 
         .datagrid-mask-msg {
-            background: #ffffff url('../images/loading.gif') no-repeat scroll 5px
-            center;
+            background: #ffffff url('../images/loading.gif') no-repeat scroll 5px center;
         }
 
         .datagrid-mask {
@@ -43,7 +42,7 @@
             width: 100%;
             height: 100%;
             opacity: 0.3;
-            filter: alpha(opacity = 30);
+            filter: alpha(opacity=30);
             display: none;
         }
 
@@ -88,7 +87,7 @@
             width: 90%;
         }
 
-        .list_table tbody tr:hover th,.list_table tbody tr:hover td {
+        .list_table tbody tr:hover th, .list_table tbody tr:hover td {
             background: #EEF0F2;
         }
 
@@ -128,13 +127,14 @@
                 <td>${job.jobId }</td>
                 <td>${job.jobName }</td>
                 <td>${job.jobGroup }</td>
-                <td>${job.jobStatus }<c:choose>
-                    <c:when test="${job.jobStatus=='1' }">
-                        &nbsp;<a href="javascript:;" onclick="changeJobStatus('${job.jobId}','0')">停止</a>&nbsp;
-                    </c:when>
-                    <c:otherwise>
-                        &nbsp;<a href="javascript:;" onclick="changeJobStatus('${job.jobId}','1')">开启</a>&nbsp;
-                    </c:otherwise>
+                <td>${job.jobStatus }
+                    <c:choose>
+                        <c:when test="${job.jobStatus=='1' }">
+                            &nbsp;<a href="javascript:;" onclick="changeJobStatus('${job.jobId}','0')">停止</a>&nbsp;
+                        </c:when>
+                        <c:otherwise>
+                            &nbsp;<a href="javascript:;" onclick="changeJobStatus('${job.jobId}','1')">开启</a>&nbsp;
+                        </c:otherwise>
                     </c:choose>
                 </td>
                 <td>${job.cronExpression }</td>
@@ -160,7 +160,7 @@
             <td><input type="text" name="beanClass" id="beanClass"/></td>
             <td><input type="text" name="springId" id="springId"/></td>
             <td><input type="text" name="methodName" id="methodName"/></td>
-            <td><input type="button" onclick="add()" value="保存" /></td>
+            <td><input type="button" onclick="add()" value="保存"/></td>
         </tr>
         </tbody>
     </table>
@@ -194,17 +194,18 @@
         }
         return true;
     }
+
     function add() {
         if (validateAdd()) {
             showWaitMsg();
             $.ajax({
-                type : "POST",
-                async : false,
-                dataType : "JSON",
-                cache : false,
-                url : "${basePath}task/add",
-                data : $("#addForm").serialize(),
-                success : function(data) {
+                type: "POST",
+                async: false,
+                dataType: "JSON",
+                cache: false,
+                url: "${basePath}task/add",
+                data: $("#addForm").serialize(),
+                success: function (data) {
                     hideWaitMsg();
                     if (data.flag) {
                         location.reload();
@@ -215,6 +216,7 @@
             });//end-ajax
         }
     }
+
     function changeJobStatus(jobId, jobStatus) {
         var param = {
             jobId: jobId,
@@ -222,14 +224,14 @@
         };
         showWaitMsg();
         $.ajax({
-            type : "POST",
-            async : false,
-            dataType : "JSON",
-            cache : false,
-            url : "/cycle/task/changeJobStatus",
+            type: "POST",
+            async: false,
+            dataType: "JSON",
+            cache: false,
+            url: "/cycle/task/changeJobStatus",
             contentType: 'application/json;charset=utf-8',
-            data : JSON.stringify(param),
-            success : function(data) {
+            data: JSON.stringify(param),
+            success: function (data) {
                 hideWaitMsg();
                 if (data.flag) {
                     location.reload();
@@ -239,22 +241,23 @@
             }//end-callback
         });//end-ajax
     }
+
     function updateCron(jobId) {
         var cron = prompt("输入cron表达式！", "");
         if (cron) {
             showWaitMsg();
             var param = {
-                jobId : jobId,
-                cronExpression : cron
+                jobId: jobId,
+                cronExpression: cron
             };
             $.ajax({
-                type : "POST",
-                async : false,
-                dataType : "JSON",
-                cache : false,
-                url : "${basePath}task/updateCron",
-                data : JSON.stringify(param),
-                success : function(data) {
+                type: "POST",
+                async: false,
+                dataType: "JSON",
+                cache: false,
+                url: "${basePath}task/updateCron",
+                data: JSON.stringify(param),
+                success: function (data) {
                     hideWaitMsg();
                     if (data.flag) {
 
@@ -268,6 +271,7 @@
         }
 
     }
+
     function showWaitMsg(msg) {
         if (msg) {
 
@@ -280,6 +284,7 @@
             panelContainer);
         msgDiv.css("marginLeft", -msgDiv.outerWidth() / 2);
     }
+
     function hideWaitMsg() {
         $('.datagrid-mask').remove();
         $('.datagrid-mask-msg').remove();
