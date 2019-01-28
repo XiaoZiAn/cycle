@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenwen.base.mapper.TableIdMapper">
+
+    <select id="getMaxTableId" resultType="String">
+        select tm.maxId from tablemaxid tm where tm.columnName = #{columnName, jdbcType=VARCHAR} and tm.tableName = #{tableName, jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateMaxId">
+        update tablemaxid tm set tm.maxId = #{tableId, jdbcType=VARCHAR} where tm.columnName = #{columnName, jdbcType=VARCHAR} and tm.tableName = #{tableName, jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertMaxId">
+        insert into tablemaxid (tableName, columnName, maxId)
+		 values(#{tableName, jdbcType=VARCHAR}, #{columnName, jdbcType=VARCHAR}, #{tableId, jdbcType=VARCHAR})
+    </insert>
+</mapper>

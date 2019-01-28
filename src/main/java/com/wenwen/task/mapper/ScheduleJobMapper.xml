@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenwen.task.mapper.ScheduleJobMapper">
+    <sql id="Base_Column_List">
+		jobId,
+		createTime,
+		updateTime,
+		jobName,
+		jobGroup,
+		jobStatus,
+		cronExpression,
+		description,
+		beanClass,
+		isConcurrent,
+		springId,
+		methodName
+	</sql>
+    <select id="selectByPrimaryKey" resultType="com.wenwen.task.dto.ScheduleJob"
+            parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from taskschedulejob
+        where jobId = #{jobId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="String">
+		delete from taskschedulejob
+		where jobId = #{jobId,jdbcType=VARCHAR}
+	</delete>
+    <insert id="insert" parameterType="com.wenwen.task.dto.ScheduleJob">
+		insert into taskschedulejob (
+		jobId,
+		createTime,
+		updateTime,
+		jobName,
+		jobGroup,
+		jobStatus,
+		cronExpression,
+		description,
+		beanClass,
+		isConcurrent,
+		springId,
+		methodName
+		)
+		values (#{jobId,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{jobName,jdbcType=VARCHAR},
+		#{jobGroup,jdbcType=VARCHAR},
+		#{jobStatus,jdbcType=VARCHAR},
+		#{cronExpression,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{beanClass,jdbcType=VARCHAR},
+		#{isConcurrent,jdbcType=VARCHAR},
+		#{springId,jdbcType=VARCHAR},
+		#{methodName,jdbcType=VARCHAR}
+		)
+	</insert>
+    <insert id="insertSelective" parameterType="com.wenwen.task.dto.ScheduleJob">
+        insert into taskschedulejob
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobId != null">
+                jobId,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+            <if test="jobName != null">
+                jobName,
+            </if>
+            <if test="jobGroup != null">
+                jobGroup,
+            </if>
+            <if test="jobStatus != null">
+                jobStatus,
+            </if>
+            <if test="cronExpression != null">
+                cronExpression,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="beanClass != null">
+                beanClass,
+            </if>
+            <if test="isConcurrent != null">
+                isConcurrent,
+            </if>
+            <if test="springId != null">
+                springId,
+            </if>
+            <if test="methodName != null">
+                methodName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobId != null">
+                #{jobId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="jobName != null">
+                #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                #{jobGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+                #{jobStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="cronExpression != null">
+                #{cronExpression,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="beanClass != null">
+                #{beanClass,jdbcType=VARCHAR},
+            </if>
+            <if test="isConcurrent != null">
+                #{isConcurrent,jdbcType=VARCHAR},
+            </if>
+            <if test="springId != null">
+                #{springId,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                #{methodName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wenwen.task.dto.ScheduleJob">
+        update taskschedulejob
+        set
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="jobName != null">
+                jobName = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                jobGroup = #{jobGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+                jobStatus = #{jobStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="cronExpression != null">
+                cronExpression = #{cronExpression,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="beanClass != null">
+                beanClass = #{beanClass,jdbcType=VARCHAR},
+            </if>
+            <if test="isConcurrent != null">
+                isConcurrent = #{isConcurrent,jdbcType=VARCHAR},
+            </if>
+            <if test="springId != null">
+                springId = #{springId,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                methodName = #{methodName,jdbcType=VARCHAR},
+            </if>
+        where jobId = #{jobId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wenwen.task.dto.ScheduleJob">
+		update taskschedulejob
+		set createTime = #{createTime,jdbcType=TIMESTAMP},
+		updateTime = #{updateTime,jdbcType=TIMESTAMP},
+		jobName = #{jobName,jdbcType=VARCHAR},
+		jobGroup = #{jobGroup,jdbcType=VARCHAR},
+		jobStatus = #{jobStatus,jdbcType=VARCHAR},
+		cronExpression = #{cronExpression,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		beanClass = #{beanClass,jdbcType=VARCHAR},
+		isConcurrent = #{isConcurrent,jdbcType=VARCHAR},
+		springId = #{springId,jdbcType=VARCHAR},
+		methodName = #{methodName,jdbcType=VARCHAR}
+		where jobId = #{jobId,jdbcType=VARCHAR}
+	</update>
+    <select id="getAll" resultType="com.wenwen.task.dto.ScheduleJob">
+        select
+        <include refid="Base_Column_List"/>
+        from taskschedulejob
+    </select>
+</mapper>
