@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-
     <%
         String path = request.getContextPath();
         String rootPath = request.getScheme() + "://"
@@ -203,7 +202,7 @@
                 async: false,
                 dataType: "JSON",
                 cache: false,
-                url: "${basePath}task/add",
+                url: "/cycle/task/add",
                 data: $("#addForm").serialize(),
                 success: function (data) {
                     hideWaitMsg();
@@ -255,26 +254,22 @@
                 async: false,
                 dataType: "JSON",
                 cache: false,
-                url: "${basePath}task/updateCron",
+                url: "/cycle/task/updateCron",
                 data: JSON.stringify(param),
                 success: function (data) {
                     hideWaitMsg();
                     if (data.flag) {
-
                         location.reload();
                     } else {
                         alert(data.msg);
                     }
-
                 }//end-callback
             });//end-ajax
         }
-
     }
 
     function showWaitMsg(msg) {
         if (msg) {
-
         } else {
             msg = '正在处理，请稍候...';
         }
