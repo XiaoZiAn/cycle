@@ -217,11 +217,11 @@
     }
 
     function changeJobStatus(jobId, jobStatus) {
+        showWaitMsg();
         var param = {
             jobId: jobId,
             jobStatus: jobStatus
         };
-        showWaitMsg();
         $.ajax({
             type: "POST",
             async: false,
